@@ -1,0 +1,38 @@
+<div class="goToCart p-pt-2">
+    <button pButton type="button" label="Go to Cart" (click)="clickingGotoCart()"></button>
+</div>
+<div class="menu-page">
+    <div class="p-pt-6">
+        <form [formGroup]="menuPage.cartData">
+            <div *ngFor=" let data of menuPage.menuAvailable" class="p-d-inline-block p-p-2">
+                <p-card header="{{data.NAME}}" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+                    <div class="p-p-2">
+                        <span class="p-text-bold">TYPE:</span>
+                        {{data.TYPE}}
+                    </div>
+                    <div class="p-p-2"><span class="p-text-bold">CUISINE:</span> {{data.CUISINE}}</div>
+                    <div class="p-p-2"><span class="p-text-bold">AVAILABILITY</span></div>
+                    <ul class="p-m-1">
+                        <li *ngFor=" let mealOfTheData of data.AVAILABILITY">{{mealOfTheData}}</li>
+                    </ul>
+                    <div class="price p-p-1">
+                        <span class="p-text-bold">PRICE:</span>
+                        <span class=""> Rs.{{data.PRICE}} </span>
+                    </div>
+                    <ng-template pTemplate="footer">
+                        <div class="p-field p-col-12">
+                            <div for="horizontal">Add to Cart</div>
+                            <p-inputNumber [min]="0" [max]="100" [formControlName]="data.NAME" [showButtons]="true"
+                                buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+                                decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success"
+                                incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" s currency="EUR">
+                            </p-inputNumber>
+                        </div>
+                    </ng-template>
+                </p-card>
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-cart *ngIf="menuPage.cartDataOpen" [cartData]="menuPage.selectedItem" (closeDialogue)="closingCartPopUp()"></app-cart>

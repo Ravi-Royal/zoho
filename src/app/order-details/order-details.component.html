@@ -1,0 +1,77 @@
+<!-- <div class="p-p-2">
+    <p-table [columns]="cols"  #table [value]="orderDetails" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" 
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <span *ngSwitchCase="'ORDER_DATE'">
+                        {{rowData[col.field] | date}}
+                    </span>
+                    <span *ngSwitchDefault>
+                        {{rowData[col.field]}}
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div> -->
+
+<div class="p-p-2">
+
+    <p-table #dt2 [value]="orderDetails" dataKey="id" [rows]="10"  [columns]="cols" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-customers" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['ITEMNAME','TYPE','CUISINE','PRICE', 'ORDER_DATE', 'ORDER_TIME']">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                ZOHO
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search keyword" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header"  let-columns>
+            <tr>
+                <th *ngFor="let col of columns" pSortableColumn="{{col['header']}}">
+                    {{col.header}}
+                    <p-sortIcon field="{{col['header']}}"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns">
+                    <p-columnFilter type="text" field="{{col['header']}}"></p-columnFilter>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" >
+            <tr>
+                <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <span *ngSwitchCase="'ORDER_DATE'">
+                        {{rowData[col.field] | date}}
+                    </span>
+                    <span *ngSwitchCase="'ORDER_TIME'">
+                        {{rowData[col.field] | date:'shortTime'}}
+                    </span>
+                    <span *ngSwitchDefault>
+                        {{rowData[col.field]}}
+                    </span>
+                </td>
+             
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No customers found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

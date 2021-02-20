@@ -1,0 +1,20 @@
+.menu-page {
+
+    ::ng-deep p-card {
+        .p-card {
+            display: flex !important;
+        }
+    }
+
+    .price {
+        background: green;
+        display: inline-block;
+        color: white;
+        border-radius: 10px;
+    }
+
+}
+.goToCart {
+    position: fixed;
+    right: 10px;
+}

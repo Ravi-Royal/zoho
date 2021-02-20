@@ -1,0 +1,10 @@
+[
+    { 
+        "ITEMNAME": "Dosa", 
+        "TYPE": "Veg", 
+        "CUISINE": "South Indian", 
+        "PRICE": "Rs.50", 
+        "ORDER_DATE": "1-1-2021", 
+        "ORDER_TIME": "2:30PM"
+    } 
+]
