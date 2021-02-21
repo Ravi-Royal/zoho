@@ -16,6 +16,10 @@ export class MenuPageComponent implements OnInit {
   constructor(private menuPageService: MenuPageService, private toastMessageService: ToastMessageService) { }
 
   ngOnInit(): void {
+    this.menuData();
+  }
+
+  menuData() {
     this.menuPageService.getmenudata().subscribe((data: any) => {
       this.menuPage.menuAvailable = data;
       data.map((data) => {
@@ -42,5 +46,9 @@ export class MenuPageComponent implements OnInit {
   closingCartPopUp() {
     this.menuPage.cartDataOpen = false;
     this.menuPage.selectedItem = [];
+    this.menuPage.cartData.reset();
+    Object.keys(this.menuPage.cartData.controls).forEach(key => {
+      this.menuPage.cartData.controls[key].setValue(0);
+    });
   }
 }

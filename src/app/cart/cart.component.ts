@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfirmationService, ConfirmEventType } from 'primeng/api';
 import { ToastMessageService } from '../toast-message/toast-message.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class CartComponent implements OnInit, OnDestroy {
   products: any;
   tableData: any;
 
-  constructor(private toastMessageService: ToastMessageService, private router: Router) { }
+  constructor(private toastMessageService: ToastMessageService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.display = true;
@@ -47,8 +48,9 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onCloseDialogue() {
-    this.closeDialogue.emit();
+    this.confirm1();
   }
+
 
   onClickPlaceOrder() {
     this.toastMessageService.addToast({
@@ -56,4 +58,29 @@ export class CartComponent implements OnInit, OnDestroy {
     })
     this.router.navigateByUrl('/order-details');
   }
+
+  confirm1() {
+    this.confirmationService.confirm({
+        message: 'Are you sure that you want to proceed?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.toastMessageService.addToast({severity:'error', summary:'Order Status', detail:'You have cancelled the order'});
+            this.display = false;
+            this.closeDialogue.emit();
+        },
+        reject: (type) => {
+            switch(type) {
+                case ConfirmEventType.REJECT:
+                    this.toastMessageService.addToast({severity:'info', summary:'Order Status', detail:'Continue to place the order'});
+                    this.display = true;
+                break;
+                case ConfirmEventType.CANCEL:
+                    this.toastMessageService.addToast({severity:'info', summary:'Order Status', detail:'Continue to place order'});
+                    this.display = true;
+                break;
+            }
+        }
+    });
+}
 }
