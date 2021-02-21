@@ -8,7 +8,7 @@ export class OrderDetailsService {
 
   constructor( private http: HttpClient) { }
 
-  getOrderdata() {
+  getOrderdata(): any {
     return this.http.get('/assets/mock/orderDetails.json');
   }
 

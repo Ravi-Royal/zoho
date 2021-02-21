@@ -8,10 +8,10 @@ export class ToastMessageService {
 
   constructor(private messageService: MessageService) {}
 
-  addToast(data) {
+  addToast(data): void {
     this.messageService.add({severity: data.severity, summary: data.summary, detail: data.detail});
   }
-  clear() {
+  clear(): void {
     this.messageService.clear();
   }
 

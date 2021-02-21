@@ -19,20 +19,20 @@ export class MenuPageComponent implements OnInit {
     this.menuData();
   }
 
-  menuData() {
+  menuData(): void {
     this.menuPageService.getmenudata().subscribe((data: any) => {
       this.menuPage.menuAvailable = data;
-      data.map((data) => {
-        this.menuPage.cartData.addControl(data.NAME, new FormControl(0));
+      data.map((controlName) => {
+        this.menuPage.cartData.addControl(controlName.NAME, new FormControl(0));
       });
     });
   }
 
-  clickingGotoCart() {
+  clickingGotoCart(): void {
     this.menuPage.menuAvailable.map((data: any) => {
       data.quantity = this.menuPage.cartData.get(data.NAME).value;
     });
-    this.menuPage.selectedItem = this.menuPage.menuAvailable.filter((data: any) => data.quantity != 0);
+    this.menuPage.selectedItem = this.menuPage.menuAvailable.filter((data: any) => +data.quantity !== 0);
     console.log(this.menuPage.selectedItem);
     if (this.menuPage.selectedItem.length > 0) {
       this.menuPage.cartDataOpen = true;
@@ -43,7 +43,7 @@ export class MenuPageComponent implements OnInit {
     }
   }
 
-  closingCartPopUp() {
+  closingCartPopUp(): void {
     this.menuPage.cartDataOpen = false;
     this.menuPage.selectedItem = [];
     this.menuPage.cartData.reset();

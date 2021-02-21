@@ -18,7 +18,9 @@ export class CartComponent implements OnInit, OnDestroy {
   products: any;
   tableData: any;
 
-  constructor(private toastMessageService: ToastMessageService, private router: Router, private confirmationService: ConfirmationService) { }
+  constructor(private toastMessageService: ToastMessageService,
+              private router: Router,
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.display = true;
@@ -31,7 +33,7 @@ export class CartComponent implements OnInit, OnDestroy {
     ];
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.display = false;
   }
 
@@ -43,44 +45,44 @@ export class CartComponent implements OnInit, OnDestroy {
     return totalAmount;
   }
 
-  onRowEditInit(data) {
+  onRowEditInit(data): void {
     console.log(this);
   }
 
-  onCloseDialogue() {
+  onCloseDialogue(): void {
     this.confirm1();
   }
 
 
-  onClickPlaceOrder() {
+  onClickPlaceOrder(): void {
     this.toastMessageService.addToast({
       severity: 'success', summary: 'Order Placed', detail: 'Your order Placed Successfully and delivered to you soon'
     });
     this.router.navigateByUrl('/order-details');
   }
 
-  confirm1() {
+  confirm1(): void {
     this.confirmationService.confirm({
-        message: 'Are you sure that you want to proceed?',
-        header: 'Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.toastMessageService.addToast({severity: 'error', summary: 'Order Status', detail: 'You have cancelled the order'});
-            this.display = false;
-            this.closeDialogue.emit();
-        },
-        reject: (type) => {
-            switch (type) {
-                case ConfirmEventType.REJECT:
-                    this.toastMessageService.addToast({severity: 'info', summary: 'Order Status', detail: 'Continue to place the order'});
-                    this.display = true;
-                    break;
-                case ConfirmEventType.CANCEL:
-                    this.toastMessageService.addToast({severity: 'info', summary: 'Order Status', detail: 'Continue to place order'});
-                    this.display = true;
-                    break;
-            }
+      message: 'Are you sure that you want to proceed?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.toastMessageService.addToast({ severity: 'error', summary: 'Order Status', detail: 'You have cancelled the order' });
+        this.display = false;
+        this.closeDialogue.emit();
+      },
+      reject: (type) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.toastMessageService.addToast({ severity: 'info', summary: 'Order Status', detail: 'Continue to place the order' });
+            this.display = true;
+            break;
+          case ConfirmEventType.CANCEL:
+            this.toastMessageService.addToast({ severity: 'info', summary: 'Order Status', detail: 'Continue to place order' });
+            this.display = true;
+            break;
         }
+      }
     });
-}
+  }
 }

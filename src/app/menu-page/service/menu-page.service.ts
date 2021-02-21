@@ -8,7 +8,7 @@ export class MenuPageService {
 
     constructor( private http: HttpClient) { }
 
-    getmenudata() {
+    getmenudata(): any {
       return this.http.get('/assets/mock/menuData.json');
     }
 }
