@@ -11,7 +11,7 @@ import { MenuPageService } from './service/menu-page.service';
 })
 export class MenuPageComponent implements OnInit {
 
-  menuPage = new MenuPage()
+  menuPage = new MenuPage();
 
   constructor(private menuPageService: MenuPageService, private toastMessageService: ToastMessageService) { }
 
@@ -23,22 +23,22 @@ export class MenuPageComponent implements OnInit {
     this.menuPageService.getmenudata().subscribe((data: any) => {
       this.menuPage.menuAvailable = data;
       data.map((data) => {
-        this.menuPage.cartData.addControl(data.NAME,new FormControl(0));
+        this.menuPage.cartData.addControl(data.NAME, new FormControl(0));
       });
     });
   }
 
   clickingGotoCart() {
-    this.menuPage.menuAvailable.map((data:any) => {
+    this.menuPage.menuAvailable.map((data: any) => {
       data.quantity = this.menuPage.cartData.get(data.NAME).value;
     });
     this.menuPage.selectedItem = this.menuPage.menuAvailable.filter((data: any) => data.quantity != 0);
-    console.log(this.menuPage.selectedItem)
-    if(this.menuPage.selectedItem.length > 0) {
+    console.log(this.menuPage.selectedItem);
+    if (this.menuPage.selectedItem.length > 0) {
       this.menuPage.cartDataOpen = true;
     } else {
       this.toastMessageService.addToast({
-        severity:'error', summary:'No Item Selected', detail:'Add atleaset one content to the cart'
+        severity: 'error', summary: 'No Item Selected', detail: 'Add atleaset one content to the cart'
       });
     }
   }

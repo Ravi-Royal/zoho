@@ -9,7 +9,7 @@ export class ToastMessageService {
   constructor(private messageService: MessageService) {}
 
   addToast(data) {
-    this.messageService.add({severity:data.severity, summary:data.summary, detail:data.detail});
+    this.messageService.add({severity: data.severity, summary: data.summary, detail: data.detail});
   }
   clear() {
     this.messageService.clear();

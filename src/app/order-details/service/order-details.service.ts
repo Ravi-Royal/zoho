@@ -11,5 +11,5 @@ export class OrderDetailsService {
   getOrderdata() {
     return this.http.get('/assets/mock/orderDetails.json');
   }
-  
+
 }

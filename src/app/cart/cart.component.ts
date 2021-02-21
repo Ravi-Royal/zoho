@@ -22,7 +22,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.display = true;
-    console.log(this.cartData)
+    console.log(this.cartData);
     this.cols = [
       { field: 'NAME', header: 'Food Name' },
       { field: 'quantity', header: 'Quantity' },
@@ -38,13 +38,13 @@ export class CartComponent implements OnInit, OnDestroy {
   get totalPrice(): number {
     let totalAmount = 0;
     this.cartData.map((data: any) => {
-      totalAmount += +data.quantity*data.PRICE
-    })
+      totalAmount += +data.quantity * data.PRICE;
+    });
     return totalAmount;
   }
 
   onRowEditInit(data) {
-    console.log(this)
+    console.log(this);
   }
 
   onCloseDialogue() {
@@ -54,8 +54,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   onClickPlaceOrder() {
     this.toastMessageService.addToast({
-      severity:'success', summary:'Order Placed', detail:'Your order Placed Successfully and delivered to you soon'
-    })
+      severity: 'success', summary: 'Order Placed', detail: 'Your order Placed Successfully and delivered to you soon'
+    });
     this.router.navigateByUrl('/order-details');
   }
 
@@ -65,20 +65,20 @@ export class CartComponent implements OnInit, OnDestroy {
         header: 'Confirmation',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
-            this.toastMessageService.addToast({severity:'error', summary:'Order Status', detail:'You have cancelled the order'});
+            this.toastMessageService.addToast({severity: 'error', summary: 'Order Status', detail: 'You have cancelled the order'});
             this.display = false;
             this.closeDialogue.emit();
         },
         reject: (type) => {
-            switch(type) {
+            switch (type) {
                 case ConfirmEventType.REJECT:
-                    this.toastMessageService.addToast({severity:'info', summary:'Order Status', detail:'Continue to place the order'});
+                    this.toastMessageService.addToast({severity: 'info', summary: 'Order Status', detail: 'Continue to place the order'});
                     this.display = true;
-                break;
+                    break;
                 case ConfirmEventType.CANCEL:
-                    this.toastMessageService.addToast({severity:'info', summary:'Order Status', detail:'Continue to place order'});
+                    this.toastMessageService.addToast({severity: 'info', summary: 'Order Status', detail: 'Continue to place order'});
                     this.display = true;
-                break;
+                    break;
             }
         }
     });

@@ -20,7 +20,9 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
-
+import { LoaderComponent } from './loader/loader.component';
+import {BlockUIModule} from 'primeng/blockui';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +30,7 @@ import { ConfirmationService } from 'primeng/api';
     CartComponent,
     ToastMessageComponent,
     OrderDetailsComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,8 @@ import { ConfirmationService } from 'primeng/api';
     FormsModule,
     DialogModule,
     TableModule,
+    BlockUIModule,
+    ProgressSpinnerModule,
     ToastModule,
     ButtonModule,
     ConfirmDialogModule,
